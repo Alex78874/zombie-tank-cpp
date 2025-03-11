@@ -44,6 +44,15 @@ public:
     float invincibilityTimer;   // Durée restante d'invincibilité
     float invincibilityDuration; // Durée totale d'invincibilité
     
+    // Mode de contrôle de la tourelle par la souris
+    bool mouseTurretControl;
+    
+    // Getter pour les munitions
+    int GetAmmo() const { return ammo; }
+    
+    // Getter for reloading state
+    bool IsReloading() const { return isReloading; }
+    
 private:
     // Couleurs
     Color bodyColor;

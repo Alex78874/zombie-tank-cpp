@@ -42,6 +42,9 @@ Tank::Tank(float x, float y) {
     isInvincible = false;
     invincibilityTimer = 0.0f;
     invincibilityDuration = 1.0f; // 1 seconde d'invincibilité après avoir été touché
+    
+    // Initialisation du mode de contrôle de la tourelle
+    mouseTurretControl = false;  // Désactivé par défaut
 }
 
 void Tank::Update(float deltaTime) {
@@ -53,9 +56,31 @@ void Tank::Update(float deltaTime) {
         }
     }
     
-    // Contrôles de la tourelle (flèches gauche/droite)
-    if (IsKeyDown(KEY_LEFT)) turretRotation -= turretRotationSpeed * deltaTime;
-    if (IsKeyDown(KEY_RIGHT)) turretRotation += turretRotationSpeed * deltaTime;
+    // Toggle du mode de contrôle avec la touche T
+    if (IsKeyPressed(KEY_T)) {
+        mouseTurretControl = !mouseTurretControl;
+    }
+    
+    // Contrôles de la tourelle
+    bool mouseButtonPressed = IsMouseButtonDown(MOUSE_LEFT_BUTTON) || IsMouseButtonDown(MOUSE_RIGHT_BUTTON);
+    
+    // Utiliser la souris si le mode est activé OU si un bouton de souris est enfoncé
+    if (mouseTurretControl || mouseButtonPressed) {
+        // Obtenir la position de la souris
+        Vector2 mousePos = GetMousePosition();
+        
+        // Calculer l'angle entre le tank et la position de la souris
+        float dx = mousePos.x - position.x;
+        float dy = mousePos.y - position.y;
+        float targetAngle = atan2f(dx, -dy) * RAD2DEG;
+        
+        // Appliquer directement l'angle à la tourelle
+        turretRotation = targetAngle;
+    } else {
+        // Mode classique avec les touches directionnelles
+        if (IsKeyDown(KEY_LEFT)) turretRotation -= turretRotationSpeed * deltaTime;
+        if (IsKeyDown(KEY_RIGHT)) turretRotation += turretRotationSpeed * deltaTime;
+    }
     
     // Contrôles du corps du tank (WASD)
     bool moving = false;

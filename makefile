@@ -7,3 +7,4 @@ CFILES = src/*.cpp
 
 build_osx:
 	$(COMPILER) $(CFILES) $(SOURCE_LIBS) $(OSX_OUT) $(OSX_OPT) $(OSX_RAYLIB)
+	./bin/build_osx

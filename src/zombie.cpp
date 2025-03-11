@@ -8,6 +8,7 @@ Zombie::Zombie(float x, float y) {
     rotation = 0.0f;
     speed = 100.0f;
     health = 10;
+    maxHealth = 10;
     active = true;
     
     width = 20.0f;
@@ -59,4 +60,39 @@ void Zombie::Draw() {
         DrawRectangle(width/2 - 5, -5, 10, 5, armColor);   // Bras droit
         
     rlPopMatrix();
+    
+    // Dessiner la barre de vie
+    DrawHealthBar();
+}
+
+void Zombie::DrawHealthBar() {
+    // Dimensions de la barre de vie
+    float barWidth = 25.0f;
+    float barHeight = 4.0f;
+    
+    // Position de la barre de vie (au-dessus du zombie)
+    float barX = position.x - barWidth / 2.0f;
+    float barY = position.y - height / 2.0f - 10.0f;  // 10 pixels au-dessus du zombie
+    
+    // Couleur de la barre selon le niveau de vie
+    Color healthColor;
+    float healthPercent = (float)health / maxHealth;
+    
+    if (healthPercent > 0.7f) {
+        healthColor = GREEN;
+    } else if (healthPercent > 0.3f) {
+        healthColor = YELLOW;
+    } else {
+        healthColor = RED;
+    }
+    
+    // Dessiner le cadre de la barre de vie
+    DrawRectangleLines(barX - 1, barY - 1, barWidth + 2, barHeight + 2, BLACK);
+    
+    // Dessiner le fond de la barre de vie d
+    DrawRectangle(barX, barY, barWidth, barHeight, GRAY);
+    
+    // Dessiner la partie remplie de la barre de vie
+    float fillWidth = healthPercent * barWidth;
+    DrawRectangle(barX, barY, fillWidth, barHeight, healthColor);
 } 

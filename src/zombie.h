@@ -13,6 +13,7 @@ public:
     float rotation;
     float speed;
     int health;
+    int maxHealth;
     bool active;
     
 private:
@@ -20,4 +21,6 @@ private:
     float height;
     Color bodyColor;
     Color armColor;
-}; 
+    
+    void DrawHealthBar();
+};  
