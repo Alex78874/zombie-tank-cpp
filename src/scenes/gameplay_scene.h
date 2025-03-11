@@ -2,10 +2,10 @@
 #define GAMEPLAY_SCENE_H
 
 #include "scene.h"
-#include "tank.h"
-#include "cursor.h"
-#include "spawner.h"
-#include "zombie.h"
+#include "../tank.h"
+#include "../cursor.h"
+#include "../spawner.h"
+#include "../zombie.h"
 #include <vector>
 
 class GameplayScene : public Scene {

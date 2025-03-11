@@ -1,9 +1,9 @@
 #include <raylib.h>
 #include <raymath.h>
 #include "view.h"
-#include "scene_manager.h"
-#include "menu_scene.h"
-#include "gameplay_scene.h"
+#include "scenes/scene_manager.h"
+#include "scenes/menu_scene.h"
+#include "scenes/gameplay_scene.h"
 #include <memory>
 
 int main()
